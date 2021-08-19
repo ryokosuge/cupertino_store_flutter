@@ -18,7 +18,7 @@ class ProductListTabPage extends StatelessWidget {
               largeTitle: Text('Cupertino Store'),
             ),
             SliverSafeArea(
-              top: true,
+              top: false,
               minimum: const EdgeInsets.only(top: 8),
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
