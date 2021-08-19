@@ -1,3 +1,4 @@
+import 'package:cupertino_store_flutter/shopping_cart_item.dart';
 import 'package:cupertino_store_flutter/state/app_state_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,7 @@ class _ShoppingCartTabPageState extends State<ShoppingCartTabPage> {
   String? location;
   String? pin;
   DateTime dateTime = DateTime.now();
+  final _currencyFormat = NumberFormat.currency(symbol: '\$');
 
   Widget _buildNameField() {
     return CupertinoTextField(
@@ -142,6 +144,7 @@ class _ShoppingCartTabPageState extends State<ShoppingCartTabPage> {
   SliverChildBuilderDelegate _buildSliverChildBuilderDelegate(
       AppStateModel model) {
     return SliverChildBuilderDelegate((context, index) {
+      final productIndex = index - 4;
       switch (index) {
         case 0:
           return Padding(
@@ -164,6 +167,56 @@ class _ShoppingCartTabPageState extends State<ShoppingCartTabPage> {
             child: _buildDateAndTimePicker(context),
           );
         default:
+          if (model.productsInCart.isEmpty) {
+            break;
+          }
+
+          if (model.productsInCart.length > productIndex) {
+            final productId = model.productsInCart.keys.toList()[productIndex];
+            final quantity = model.productsInCart.values.toList()[productIndex];
+            return ShoppingCartItem(
+              product: model.getProductById(productId),
+              index: index,
+              lastItem: productIndex == model.productsInCart.length - 1,
+              quantity: quantity,
+              formatter: _currencyFormat,
+            );
+          }
+
+          if (model.productsInCart.keys.length == productIndex) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Text(
+                        'Shipping '
+                        '${_currencyFormat.format(model.shippingCost)}',
+                        style: Styles.productRowItemPrice,
+                      ),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      Text(
+                        'Tax ${_currencyFormat.format(model.tax)}',
+                        style: Styles.productRowItemPrice,
+                      ),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      Text(
+                        'Tax ${_currencyFormat.format(model.totalCost)}',
+                        style: Styles.productRowTotal,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            );
+          }
         // Do noting. For now.
       }
       return null;
