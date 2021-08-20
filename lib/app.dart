@@ -34,11 +34,17 @@ class CupertinoStoreHomePage extends StatelessWidget {
       tabBar: CupertinoTabBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.home), label: 'Products'),
+            icon: Icon(CupertinoIcons.home),
+            label: 'Products',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.search), label: 'Search'),
+            icon: Icon(CupertinoIcons.search),
+            label: 'Search',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.shopping_cart), label: 'Cart'),
+            icon: Icon(CupertinoIcons.shopping_cart),
+            label: 'Cart',
+          ),
         ],
       ),
       tabBuilder: (context, index) {

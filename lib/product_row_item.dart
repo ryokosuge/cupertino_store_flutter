@@ -40,7 +40,9 @@ class ProductRowItem extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +51,11 @@ class ProductRowItem extends StatelessWidget {
                     product.name,
                     style: Styles.productRowItemName,
                   ),
-                  const Padding(padding: EdgeInsets.only(top: 8)),
+                  const Padding(
+                    padding: EdgeInsets.only(
+                      top: 8,
+                    ),
+                  ),
                   Text(
                     '\$${product.price}',
                     style: Styles.productRowItemPrice,
@@ -61,7 +67,10 @@ class ProductRowItem extends StatelessWidget {
           CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () {
-              final model = Provider.of<AppStateModel>(context, listen: false);
+              final model = Provider.of<AppStateModel>(
+                context,
+                listen: false,
+              );
               model.addProductToCart(product.id);
             },
             child: const Icon(
